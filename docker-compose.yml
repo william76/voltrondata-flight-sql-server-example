@@ -1,0 +1,24 @@
+---
+services:
+  build:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: voltrondata-flight-sql-example
+    ports:
+      - "31337:31337"
+    environment:
+      TLS_ENABLED: "1"
+      FLIGHT_PASSWORD: "flight_password"
+      PRINT_QUERIES: "1"
+      INIT_SQL_COMMANDS: "SET threads = 1; SET memory_limit = '1GB';"
+    volumes:
+      - data:/opt/flight_sql/data
+
+    restart: unless-stopped
+
+volumes:
+  data:
+    name: voltrondata-flight-sql-data
+...
+
